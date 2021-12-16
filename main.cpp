@@ -15,7 +15,7 @@
 // Объявляю свои типы, чтобы было проще
 using stringArray = std::vector<std::string>;
 using stringDoubleArray = std::vector<std::vector<std::string>>;
-class NoWordFoundException: public std::exception {};
+//class NoWordFoundException: public std::exception {};
 
 
 stringDoubleArray finalTrails;
@@ -119,15 +119,8 @@ int main() {
                 }
             }
 
-            try {
-
-                findNeighbors(dict, stringArray(), sourceWord, destWord, stringArray{sourceWord});
-
-            } catch (NoWordFoundException& e) {
-
-                std::cout << "no word found" << std::endl;
-
-            }
+            // Запускаем процесс поиска
+            findNeighbors(dict, stringArray(), sourceWord, destWord, stringArray{sourceWord});
 
             stringArray final;
 
@@ -141,10 +134,14 @@ int main() {
                 }
             }
 
-            for (int i = 0; i < final.size() - 1; ++i) {
-                std::cout << final[i] << " -> ";
+            if (final.empty()) {
+                std::cout << "Word chain could not be built" << std::endl;
+            }else {
+                for (int i = 0; i < final.size() - 1; ++i) {
+                    std::cout << final[i] << " -> ";
+                }
+                std::cout << final[final.size() - 1] << std::endl;
             }
-            std::cout << final[final.size() - 1] << std::endl;
 
         }else {
             std::cout << "Could not open source file" << std::endl;
